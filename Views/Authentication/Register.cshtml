@@ -1,0 +1,84 @@
+﻿@model AccountViewModel
+
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+<section class="authentication bg-light">
+    <div class="container">
+        <div class="authentication-box">
+            <h2 class="authentication-box--title">Rejestracja</h2>
+            <form asp-action="Register" asp-controller="Authentication" method="post">
+                <div class="form-group">
+                    <label asp-for="Email">Adres e-mail</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Hasło</label>
+                    <input asp-for="Password" class="form-control" title="Hasło musi zawierać co najmniej 8 znaków, w tym co najmniej jedną cyfrę, jedną wielką literę, jedną małą literę i jeden znak specjalny (np. !#$%^&*)." required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FirstName">Imię</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName">Nazwisko</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Age">Wiek</label>
+                    <input asp-for="Age" type="number" class="form-control" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn">Zarejestruj się</button>
+            </form>
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty].Errors.Count > 0)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @foreach (var error in ViewData.ModelState[string.Empty].Errors)
+                    {
+                        @error.ErrorMessage
+                    }
+                </div>
+            }
+            <div id="passwordError" class="alert alert-danger" role="alert" style="display: none;"></div>
+        </div>
+            <div class="authentication-box">
+                <h2 class="authentication-box--title">Masz już konto?</h2>
+                <form action="@Url.Action("Login", "Authentication")" method="get">
+                    <button type="submit" class="btn btn-switch">Zaloguj się</button>
+                </form>
+            </div>
+    </div>
+</section>
+
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+            form.addEventListener("submit", function(event) {
+                const passwordInput = document.querySelector("input[name='Password']");
+                const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!$%^&*]).{8,}$/;
+                const passwordErrorDiv = document.getElementById("passwordError");
+
+                if (!pattern.test(passwordInput.value)) {                    
+                    passwordErrorDiv.textContent = "Hasło musi zawierać co najmniej 8 znaków, w tym co najmniej jedną cyfrę, jedną wielką literę, jedną małą literę i jeden znak specjalny (np. !#$%^&*).";
+                    
+                    passwordErrorDiv.style.display = "block";
+
+                    event.preventDefault(); 
+                } else {                    
+                    passwordErrorDiv.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

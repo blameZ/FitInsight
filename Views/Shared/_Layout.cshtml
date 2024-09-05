@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitInsight | @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:ital,wght@0,200;0,400;1,900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FitInsight.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/7979a03bd9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg position-fixed top-0 w-100">
+        <div class="container">
+            <a class="link navbar-brand" href="/Home">
+                <i class="fa-solid fa-dumbbell"></i> Fit<span class="main-color-text">Insight</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ms-auto">
+                    <a class="link nav-link active" aria-current="page" href="/Home">Strona główna</a>
+                    <div class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="link nav-link active" aria-current="page" href="/Authentication/Logout">Wyloguj się</a>
+                        }
+                        else
+                        {
+                            <a class="link nav-link active" aria-current="page" href="/Authentication/Login">Zaloguj się</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="content">
+        @RenderBody()
+    </main>
+    <footer class="py-2 text-center">
+        <p class="mb-0"> &copy; @DateTime.Now.Year | FitInsight </p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

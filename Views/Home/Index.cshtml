@@ -1,0 +1,131 @@
+﻿@using FitInsight.Models.ViewModels;
+
+@{
+    ViewData["Title"] = "Strona Główna";
+}
+
+@model UserInfoViewModel
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <div class="home-dashboard">
+            <div class="user-info">
+                <h2 class="user-info__greeting">
+                    Witaj, <a href="@Url.Action("EditProfile", "Account")" class="user-info__link">@Model.UserName</a>
+                </h2>
+                <p class="user-info__activity-count">Twoja liczba aktywności: @Model.TotalActivities</p>
+                <form method="get" asp-action="Index" class="user-info__form">
+                    <div class="form-group">
+                        <label for="startDate">Data początkowa:</label>
+                        <input type="date" id="startDate" name="startDate" class="form-control" value="@Model.StartDateFilter?.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Data końcowa:</label>
+                        <input type="date" id="endDate" name="endDate" class="form-control" value="@Model.EndDateFilter?.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Filtruj</button>
+                </form>
+                <div class="user-info__charts">
+                    <canvas id="caloriesChart" width="400" height="200"></canvas>
+                    <canvas id="activityPieChart" width="300" height="300"></canvas>
+                </div>
+            </div>
+            <section class="activities">
+                <h2 class="section-title">Twoje aktywności</h2>
+                <div class="activities-list">
+                    @foreach (var activity in Model.RecentActivities)
+                    {
+                        <div class="activities-list__item">
+                            <div class="activity">
+                                <div class="activity__info">
+                                    <h3 class="activity__title">@activity.ActivityType</h3>
+                                    <p class="activity__date">@activity.StartTime.ToString("dd MMMM yyyy, HH:mm")</p>
+                                </div>
+                                <div class="activity__details">
+                                    <p class="activity__distance">Dystans: @activity.Distance km</p>
+                                    <p class="activity__duration">Czas: @activity.Duration.ToString(@"hh\:mm\:ss")</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}
+else
+{
+    <header class="hero-img">
+        <div class="hero-text">
+            <h1>Witaj w Fit<span class="main-color-text">Insight</span></h1>
+            <p>W miejscu, gdzie podchodzimy do treningu z pasją</p>
+        </div>
+        <div class="hero-shadow"></div>
+    </header>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const caloriesChart = document.getElementById('caloriesChart').getContext('2d');
+        const pieChart = document.getElementById('activityPieChart').getContext('2d');
+
+        new Chart(caloriesChart, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.ActivityTypes)),
+                datasets: [{
+                    label: 'Spalone kalorie',
+                    data: @Html.Raw(Json.Serialize(ViewBag.CaloriesBurned)),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(pieChart, {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.PieActivityTypes)),
+                datasets: [{
+                    label: 'Aktywności',
+                    data: @Html.Raw(Json.Serialize(ViewBag.PieActivityCounts)),
+                    backgroundColor: [
+                        '#68BB59',
+                        '#4C9A2A',
+                        '#ACDF87',
+                        '#118AB2',
+                        '#06D6A0',
+                        '#3A86FF' 
+                    ],
+                    hoverBackgroundColor: [
+                        '#68BB59',  
+                        '#4C9A2A',
+                        '#ACDF87',
+                        '#118AB2',
+                        '#06D6A0',
+                        '#3A86FF'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Podział aktywności fizycznych'
+                }
+            }
+        });
+
+    </script>
+
+}

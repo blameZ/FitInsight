@@ -1,0 +1,52 @@
+﻿@using FitInsight.Models.ViewModels
+
+@model LoginViewModel
+
+
+@{
+    ViewData["Title"] = "Logowanie";
+}
+
+
+<section class="authentication bg-light">    
+    <div class="container">
+        <div class="authentication-box">
+            <h2 class="authentication-box--title">Nie masz jeszcze konta?</h2>
+            <form action="@Url.Action("Register", "Authentication")" method="get">
+                <button type="submit" class="btn btn-switch">Zarejestruj się</button>
+            </form>
+        </div>
+        <div class="authentication-box">
+            <h2 class="authentication-box--title">Zaloguj się</h2>
+            <form asp-action="Login" asp-controller="Authentication" method="post">
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn">Zaloguj się</button>
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ContainsKey(string.Empty) && ViewData.ModelState[string.Empty].Errors.Count > 0)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @foreach (var error in ViewData.ModelState[string.Empty].Errors)
+                        {
+                            @error.ErrorMessage
+                        }
+                    </div>
+                }
+            </form>
+        </div>
+    </div>    
+</section>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
