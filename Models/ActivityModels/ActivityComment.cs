@@ -13,6 +13,9 @@ namespace FitInsight.Models.ActivityModels
         [Required]
         public int ActivityId { get; set; }
 
+        [Required]
+        public Guid UserId { get; set; }
+
         [ForeignKey("ActivityId")]
         public Activity Activity { get; set; }
 
