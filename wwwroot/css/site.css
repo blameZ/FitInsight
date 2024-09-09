@@ -285,6 +285,14 @@ header.hero-img .hero-text p {
   margin-bottom: 0.3em;
 }
 
+.delete-comment {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
 footer {
   color: #333;
 }

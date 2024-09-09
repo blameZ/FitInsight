@@ -39,6 +39,7 @@ namespace FitInsight.Repositories
         {
             return await _context.Activities
                 .Include(a => a.ActivityLikes)
+                .Include(a => a.ActivityComments)
                 .Where(a => a.ActivityId == activityId).FirstAsync();
         }
 
@@ -49,12 +50,32 @@ namespace FitInsight.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddCommentAsync(Guid userId, int activityId, string content)
+        public async Task<List<ActivityComment>> GetCommentsByActivityIdAsync(int activityId)
         {
-            var comment = new ActivityComment { UserId = userId, ActivityId = activityId, CommentText = content};
+            return await _context.ActivityComments
+                .Where(c => c.ActivityId == activityId)
+                .OrderByDescending(c => c.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task AddCommentAsync(Guid userId, string userName, int activityId, string content)
+        {
+            var comment = new ActivityComment { UserId = userId, UserName = userName, ActivityId = activityId, CommentText = content};
             _context.ActivityComments.Add(comment);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<ActivityComment> GetCommentByIdAsync(int commentId)
+        {
+            return await _context.ActivityComments.FindAsync(commentId);
+        }
+
+        public async Task DeleteCommentAsync(ActivityComment comment)
+        {
+            _context.ActivityComments.Remove(comment);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
 

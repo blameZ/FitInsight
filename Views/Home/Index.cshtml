@@ -56,16 +56,14 @@
 
                                 <button class="like-btn" data-activity-id="@activity.ActivityId">Lubię to (@activity.ActivityLikes.Count)</button>
 
-                                <form method="post" asp-action="AddComment" asp-route-activityId="@activity.ActivityId">
-                                    <input type="text" name="commentContent" placeholder="Dodaj komentarz" />
+                                <form class="add-comment-form" data-activity-id="@activity.ActivityId">
+                                    <input type="text" name="commentContent" placeholder="Dodaj komentarz" required />
                                     <button type="submit">Dodaj komentarz</button>
                                 </form>
-                                <ul>
-                                    @foreach (var comment in activity.ActivityComments)
-                                    {
-                                        <li>@comment.CommentText - @comment.CreatedAt</li>
-                                    }
-                                </ul>
+
+                                <div class="comments-section" id="comments-@activity.ActivityId">
+                                    @Html.Partial("_CommentsPartial", activity.ActivityComments)
+                                </div>
                             </div>
                         </div>
                     }
@@ -125,10 +123,10 @@ else
                         '#ACDF87',
                         '#118AB2',
                         '#06D6A0',
-                        '#3A86FF' 
+                        '#3A86FF'
                     ],
                     hoverBackgroundColor: [
-                        '#68BB59',  
+                        '#68BB59',
                         '#4C9A2A',
                         '#ACDF87',
                         '#118AB2',
@@ -140,7 +138,7 @@ else
             options: {
                 responsive: true,
                 title: {
-                    display: false                    
+                    display: false
                 }
             }
         });
@@ -157,8 +155,30 @@ else
                 method: 'POST',
                 data: { activityId: activityId },
                 success: function (response) {
-                    // Zaktualizuj liczbę lajków w przycisku
                     likeButton.text('Lubię to (' + response.likeCount + ')');
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + error);
+                }
+            });
+        });
+        });
+
+        $(document).ready(function () {            
+        $('.add-comment-form').on('submit', function (e) {
+            e.preventDefault();
+            
+            var form = $(this);
+            var activityId = form.data('activity-id');
+            var commentContent = form.find('input[name="commentContent"]').val();
+
+            $.ajax({
+                url: '@Url.Action("AddComment", "Activity")',
+                method: 'POST',
+                data: { activityId: activityId, commentText: commentContent },
+                success: function (response) {                        
+                    $('#comments-' + activityId).html(response);
+                    form.find('input[name="commentContent"]').val('');
                 },
                 error: function (xhr, status, error) {
                     console.error("An error occurred: " + error);
