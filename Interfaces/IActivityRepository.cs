@@ -14,6 +14,7 @@ namespace FitInsight.Interfaces
         Task AddCommentAsync(Guid userId, string userName, int activityId, string content);
         Task<ActivityComment> GetCommentByIdAsync(int commentId);
         Task DeleteCommentAsync(ActivityComment comment);
+        Task UpdateActivityAsync(Activity activity);
     }
 }
 

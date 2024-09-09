@@ -12,6 +12,8 @@ namespace FitInsight.Models.ActivityModels.cs
         [Required]
         public Guid UserId { get; set; }
 
+        public bool IsPrivate { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string ActivityType { get; set; }

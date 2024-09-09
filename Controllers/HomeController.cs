@@ -48,7 +48,7 @@ public class HomeController : Controller
 
         AssignDataToViewBag(recentActivities);
 
-        var userInfo = CreateUserInfoViewModel(user, recentActivities, totalActivities);
+        var userInfo = CreateUserInfoViewModel(user, userId, recentActivities, totalActivities);
 
         LogActivityResults(recentActivities, userId);
 
@@ -84,11 +84,12 @@ public class HomeController : Controller
         ViewBag.CurrentUserId = _userManager.GetUserId(User);
     }
 
-    private UserInfoViewModel CreateUserInfoViewModel(ApplicationUser user, List<FitInsight.Models.ActivityModels.cs.Activity> recentActivities, int totalActivities)
+    private UserInfoViewModel CreateUserInfoViewModel(ApplicationUser user, Guid userId, List<FitInsight.Models.ActivityModels.cs.Activity> recentActivities, int totalActivities)
     {
         return new UserInfoViewModel
         {
             UserName = user.FirstName,
+            UserId = userId,
             Email = user.Email,
             TotalActivities = totalActivities,
             RecentActivities = recentActivities

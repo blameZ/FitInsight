@@ -76,6 +76,12 @@ namespace FitInsight.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateActivityAsync(Activity activity)
+        {
+            _context.Activities.Update(activity);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
 

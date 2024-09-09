@@ -172,9 +172,9 @@ header.hero-img {
     }
 }
 
-///////////////////////HOME///////////////////////
+///////////////////////DASHBOARD///////////////////////
 
-.home-dashboard {
+.dashboard {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -303,6 +303,7 @@ header.hero-img {
             gap: 1.5em;
 
             &__item {
+                position: relative;
                 background-color: $color-white;
                 padding: 1.5em;
                 @include box-shadow(#000);
@@ -340,10 +341,11 @@ header.hero-img {
                             margin-bottom: 0.3em;
                         }
                     }
+
                 }
 
                 .like-btn {
-                    background-color: $color-primary;
+                    background-color: $color-medium-green;
                     color: $color-white;
                     border: none;
                     padding: 0.5rem 1rem;
@@ -372,12 +374,12 @@ header.hero-img {
                         outline: none;
 
                         &:focus {
-                            border-color: $color-primary;
+                            border-color: $color-dark-green;
                         }
                     }
 
                     button {
-                        background-color: $color-primary; // Zielony przycisk
+                        background-color: $color-medium-green;
                         color: #fff;
                         border: none;
                         padding: 0.5rem 1rem;
@@ -429,6 +431,26 @@ header.hero-img {
     }
 }
 
+.privacy-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.privacy-btn {
+    background: none;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: $color-primary;
+
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
 ///////////////////////FOOTER///////////////////////
 
 footer {
@@ -460,7 +482,7 @@ footer {
         }
     }
 
-    .home-dashboard {
+    .dashboard {
         flex-direction: row;
 
         .user-info {

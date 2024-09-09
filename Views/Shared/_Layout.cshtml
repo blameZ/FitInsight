@@ -24,15 +24,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    <a class="link nav-link active" aria-current="page" href="/Home">Strona główna</a>
+                    <a class="link nav-link active" aria-current="page" href="/Home"><i class="fa-solid fa-house"></i> Strona główna</a>
                     <div class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="link nav-link active" aria-current="page" href="/Authentication/Logout">Wyloguj się</a>
+                            <a class="link nav-link active" aria-current="page" href="UserDashboard/Index"><i class="fa-solid fa-desktop"></i> Mój panel</a>
+                            <a class="link nav-link active" aria-current="page" href="Activity/Create"><i class="fa-solid fa-plus"></i> Dodaj aktywność</a>
+                            <a class="link nav-link active" aria-current="page" href="/Authentication/Logout"><i class="fa-solid fa-right-from-bracket"></i> Wyloguj się</a>
                         }
                         else
                         {
-                            <a class="link nav-link active" aria-current="page" href="/Authentication/Login">Zaloguj się</a>
+                            <a class="link nav-link active" aria-current="page" href="/Authentication/Login"><i class="fa-solid fa-right-to-bracket"></i> Zaloguj się</a>
                         }
                     </div>
                 </div>

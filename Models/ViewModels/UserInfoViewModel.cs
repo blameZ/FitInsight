@@ -6,6 +6,7 @@ namespace FitInsight.Models.ViewModels
 	public class UserInfoViewModel
 	{
 		public string UserName { get; set; }
+		public Guid UserId { get; set; }
 		public string Email { get; set; }
 		public int TotalActivities { get; set; }
 		public IEnumerable<Activity> RecentActivities { get; set; }
@@ -13,4 +14,3 @@ namespace FitInsight.Models.ViewModels
 		public DateTime? EndDateFilter { get; set; }
 	}
 }
-

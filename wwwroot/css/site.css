@@ -139,14 +139,14 @@ header.hero-img .hero-text p {
   margin-top: 1em;
 }
 
-.home-dashboard {
+.dashboard {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
   min-height: 88vh;
 }
-.home-dashboard .user-info {
+.dashboard .user-info {
   position: relative;
   top: 10vh;
   height: 88vh;
@@ -154,14 +154,14 @@ header.hero-img .hero-text p {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   flex: 1;
 }
-.home-dashboard .user-info__greeting {
+.dashboard .user-info__greeting {
   position: relative;
   text-align: center;
   font-size: 2rem;
   color: #1E5631;
   margin-bottom: 0.7rem;
 }
-.home-dashboard .user-info__greeting::after {
+.dashboard .user-info__greeting::after {
   content: "";
   position: absolute;
   bottom: -5px;
@@ -171,50 +171,50 @@ header.hero-img .hero-text p {
   background-color: #1E5631;
   transform: translateX(-50%);
 }
-.home-dashboard .user-info__link {
+.dashboard .user-info__link {
   text-decoration: none;
   color: #1E5631;
   transition: color 0.3s;
 }
-.home-dashboard .user-info__link:hover {
+.dashboard .user-info__link:hover {
   color: #68BB59;
 }
-.home-dashboard .user-info__activity-count {
+.dashboard .user-info__activity-count {
   font-size: 0.9rem;
   color: #040a06;
   margin-top: 1.2rem;
   margin-bottom: 1.5rem;
 }
-.home-dashboard .user-info__form {
+.dashboard .user-info__form {
   display: flex;
   gap: 0.5rem;
   flex-direction: row;
   margin-bottom: 1rem;
 }
-.home-dashboard .user-info__form .form-group {
+.dashboard .user-info__form .form-group {
   width: 50%;
 }
-.home-dashboard .user-info__form .form-group label {
+.dashboard .user-info__form .form-group label {
   font-size: 0.9rem;
   color: #1E5631;
   margin-bottom: 0.5rem;
 }
-.home-dashboard .user-info__form .form-group .form-control {
+.dashboard .user-info__form .form-group .form-control {
   padding: 0.5rem;
   border: 1px solid #72ce91;
   border-radius: 4px;
 }
-.home-dashboard .user-info .btn-primary {
+.dashboard .user-info .btn-primary {
   width: 100%;
   background-color: #4C9A2A;
   border-color: #4C9A2A;
   padding: 0.5rem 1rem;
 }
-.home-dashboard .user-info .btn-primary:hover {
+.dashboard .user-info .btn-primary:hover {
   background-color: #1E5631;
   border-color: #1E5631;
 }
-.home-dashboard .user-info__charts {
+.dashboard .user-info__charts {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -223,7 +223,7 @@ header.hero-img .hero-text p {
   width: 100%;
   gap: 0.7rem;
 }
-.home-dashboard .user-info__charts .charts {
+.dashboard .user-info__charts .charts {
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
@@ -233,58 +233,59 @@ header.hero-img .hero-text p {
   width: 100%;
   margin-bottom: 10%;
 }
-.home-dashboard .user-info__charts .charts-title {
+.dashboard .user-info__charts .charts-title {
   font-size: 0.9rem;
   color: #1E5631;
   margin-bottom: 0.5rem;
 }
-.home-dashboard .user-info__charts canvas {
+.dashboard .user-info__charts canvas {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
-.home-dashboard .activities {
+.dashboard .activities {
   flex: 2;
   border-radius: 10px;
 }
-.home-dashboard .activities .activities-list {
+.dashboard .activities .activities-list {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
 }
-.home-dashboard .activities .activities-list__item {
+.dashboard .activities .activities-list__item {
+  position: relative;
   background-color: #fff;
   padding: 1.5em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
 }
-.home-dashboard .activities .activities-list__item:hover {
+.dashboard .activities .activities-list__item:hover {
   transform: scale(1.01);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.15);
 }
-.home-dashboard .activities .activities-list__item .activity__info {
+.dashboard .activities .activities-list__item .activity__info {
   margin-bottom: 0.5em;
 }
-.home-dashboard .activities .activities-list__item .activity__info .activity__title {
+.dashboard .activities .activities-list__item .activity__info .activity__title {
   font-size: 1.5em;
   color: #1E5631;
 }
-.home-dashboard .activities .activities-list__item .activity__info .activity__date {
+.dashboard .activities .activities-list__item .activity__info .activity__date {
   font-size: 0.9em;
   color: black;
   opacity: 0.7;
 }
-.home-dashboard .activities .activities-list__item .activity__details {
+.dashboard .activities .activities-list__item .activity__details {
   display: flex;
   justify-content: space-between;
   font-size: 1em;
   color: #333;
 }
-.home-dashboard .activities .activities-list__item .activity__details .activity__distance,
-.home-dashboard .activities .activities-list__item .activity__details .activity__duration {
+.dashboard .activities .activities-list__item .activity__details .activity__distance,
+.dashboard .activities .activities-list__item .activity__details .activity__duration {
   margin-bottom: 0.3em;
 }
-.home-dashboard .activities .activities-list__item .like-btn {
-  background-color: #4C9A2A;
+.dashboard .activities .activities-list__item .like-btn {
+  background-color: #68BB59;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -293,15 +294,15 @@ header.hero-img .hero-text p {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.home-dashboard .activities .activities-list__item .like-btn:hover {
+.dashboard .activities .activities-list__item .like-btn:hover {
   background-color: #3e7b33;
 }
-.home-dashboard .activities .activities-list__item .add-comment-form {
+.dashboard .activities .activities-list__item .add-comment-form {
   display: flex;
   flex-direction: row;
   margin-top: 1rem;
 }
-.home-dashboard .activities .activities-list__item .add-comment-form input[type=text] {
+.dashboard .activities .activities-list__item .add-comment-form input[type=text] {
   flex: 1;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -310,11 +311,11 @@ header.hero-img .hero-text p {
   font-size: 1rem;
   outline: none;
 }
-.home-dashboard .activities .activities-list__item .add-comment-form input[type=text]:focus {
-  border-color: #4C9A2A;
+.dashboard .activities .activities-list__item .add-comment-form input[type=text]:focus {
+  border-color: #1E5631;
 }
-.home-dashboard .activities .activities-list__item .add-comment-form button {
-  background-color: #4C9A2A;
+.dashboard .activities .activities-list__item .add-comment-form button {
+  background-color: #68BB59;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -323,23 +324,23 @@ header.hero-img .hero-text p {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.home-dashboard .activities .activities-list__item .add-comment-form button:hover {
+.dashboard .activities .activities-list__item .add-comment-form button:hover {
   background-color: #2d682f;
 }
-.home-dashboard .activities .activities-list__item .comments-section {
+.dashboard .activities .activities-list__item .comments-section {
   margin-top: 1rem;
 }
-.home-dashboard .activities .activities-list__item .comments-section ul {
+.dashboard .activities .activities-list__item .comments-section ul {
   list-style-type: none;
   padding: 0;
 }
-.home-dashboard .activities .activities-list__item .comments-section ul li {
+.dashboard .activities .activities-list__item .comments-section ul li {
   padding: 0.5rem 0;
   border-bottom: 1px solid #e0e0e0;
   font-size: 0.9rem;
   color: #333;
 }
-.home-dashboard .activities .activities-list__item .comments-section ul li:last-child {
+.dashboard .activities .activities-list__item .comments-section ul li:last-child {
   border-bottom: none;
 }
 
@@ -353,6 +354,24 @@ header.hero-img .hero-text p {
 .delete-comment:hover {
   color: red;
   text-decoration: underline;
+}
+
+.privacy-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.privacy-btn {
+  background: none;
+  border: none;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: #4C9A2A;
+}
+.privacy-btn:hover {
+  opacity: 0.8;
 }
 
 footer {
@@ -373,17 +392,17 @@ footer {
     width: 30vw;
     height: 50vh;
   }
-  .home-dashboard {
+  .dashboard {
     flex-direction: row;
   }
-  .home-dashboard .user-info {
+  .dashboard .user-info {
     position: sticky;
   }
-  .home-dashboard .user-info, .home-dashboard .activities {
+  .dashboard .user-info, .dashboard .activities {
     max-width: 30%;
     max-width: 100%;
   }
-  .home-dashboard .activities .section-title {
+  .dashboard .activities .section-title {
     margin-top: 0;
   }
 }

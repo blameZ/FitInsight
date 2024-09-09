@@ -42,6 +42,7 @@
     <Folder Include="Models\EquipmentModels\" />
     <Folder Include="Migrations\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Views\UserDashboard\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="DataAccess\" />
@@ -54,6 +55,7 @@
     <None Remove="Models\EquipmentModels\" />
     <None Remove="Migrations\" />
     <None Remove="Repositories\" />
+    <None Remove="Views\UserDashboard\" />
   </ItemGroup>
   <ItemGroup>
     <SassFile Remove="wwwroot\css\_colors.scss" />

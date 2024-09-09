@@ -10,13 +10,15 @@ namespace FitInsight.Controllers
 {
 	public class ActivityController : Controller
 	{
+        private readonly ILogger<ActivityController> _logger;
         private readonly IActivityRepository _activityRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ActivityController(IActivityRepository activityRepository, UserManager<ApplicationUser> userManager)
+        public ActivityController(IActivityRepository activityRepository, ILogger<ActivityController> logger, UserManager<ApplicationUser> userManager)
 		{
 			_activityRepository = activityRepository;
             _userManager = userManager;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -89,6 +91,42 @@ namespace FitInsight.Controllers
             return PartialView("_CommentsPartial", await _activityRepository.GetCommentsByActivityIdAsync(comment.ActivityId));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TogglePrivacy(int activityId)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            Guid.TryParse(user.Id, out Guid userId);
+            if(user == null)
+            {
+                _logger.LogWarning("User is not authenticated");
+                return RedirectToAction("Login", "Authentication");
+            }
+
+            var activity = await _activityRepository.GetActivityByIdAsync(activityId);
+
+
+            if (activity == null)
+            {
+                _logger.LogWarning($"Activity with ID {activityId} not found");
+                return NotFound();
+            }
+
+            if(activity.UserId != userId)
+            {
+                _logger.LogWarning($"User {user.UserName} tried to change privacy settings for activity {activityId}");
+                return Forbid();
+            }
+
+            activity.IsPrivate = !activity.IsPrivate;
+
+            await _activityRepository.UpdateActivityAsync(activity);
+
+            _logger.LogInformation($"User {user.UserName} changed privacy status of activity {activityId} to {(activity.IsPrivate ? "private" : "public")}");
+
+            return RedirectToAction("Index", "UserDashboard");
+        }
 
     }
 }

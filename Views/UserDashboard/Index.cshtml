@@ -1,0 +1,211 @@
+﻿@using FitInsight.Models.ViewModels;
+
+@{
+    ViewData["Title"] = "Mój panel";
+}
+
+@model UserInfoViewModel
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <div class="dashboard">
+            <div class="user-info">
+                <h2 class="user-info__greeting">
+                    Witaj, <a href="@Url.Action("EditProfile", "Account")" class="user-info__link">@Model.UserName</a>
+                </h2>
+                <p class="user-info__activity-count">Twoja liczba aktywności: @Model.TotalActivities</p>
+                <form method="get" asp-action="Index">
+                    <div class="user-info__form">
+                        <div class="form-group">
+                            <label for="startDate">Data początkowa:</label>
+                            <input type="date" id="startDate" name="startDate" class="form-control" value="@Model.StartDateFilter?.ToString("yyyy-MM-dd")" />
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">Data końcowa:</label>
+                            <input type="date" id="endDate" name="endDate" class="form-control" value="@Model.EndDateFilter?.ToString("yyyy-MM-dd")" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Filtruj</button>
+                </form>
+                <div class="user-info__charts">
+                    <div class="charts">
+                        <p class="charts-title">Spalone kalorie</p>
+                        <canvas id="caloriesChart"></canvas>
+                    </div>
+                    <div class="charts">
+                        <p class="chart-title">Podział aktywności fizycznych</p>
+                        <canvas id="activityPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <section class="activities">
+                <div class="activities-list">
+                    @foreach (var activity in Model.RecentActivities)
+                    {
+                        <div class="activities-list__item">
+
+                            <div class="activity">
+
+                                <div class="activity__info">
+                                    <h3 class="activity__title">@activity.ActivityType</h3>
+                                    <p class="activity__date">@activity.StartTime.ToString("dd MMMM yyyy, HH:mm")</p>
+                                </div>
+
+                                <div class="activity__details">
+                                    <p class="activity__distance">Dystans: @activity.Distance km</p>
+                                    <p class="activity__duration">Czas: @activity.Duration.ToString(@"hh\:mm\:ss")</p>
+                                </div>
+
+                                <button class="like-btn" data-activity-id="@activity.ActivityId"><i class="fa-regular fa-heart"></i> @activity.ActivityLikes.Count</button>
+
+                                <form class="add-comment-form" data-activity-id="@activity.ActivityId">
+                                    <input type="text" name="commentContent" placeholder="Dodaj komentarz" required />
+                                    <button type="submit">Dodaj komentarz</button>
+                                </form>
+
+                                <div class="comments-section" id="comments-@activity.ActivityId">
+                                    @Html.Partial("_CommentsPartial", activity.ActivityComments)
+                                </div>
+
+                                @if (activity.UserId == Model.UserId)
+                                {
+                                    <form method="post" asp-action="TogglePrivacy" asp-controller="Activity" asp-route-activityId="@activity.ActivityId" class="privacy-toggle">
+                                        @if (activity.IsPrivate)
+                                        {
+                                            <button type="submit" class="privacy-btn private"><i class="fa-solid fa-lock"></i> Prywatny</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" class="privacy-btn public"><i class="fa-solid fa-earth-americas"></i> Publiczny</button>
+                                        }
+                                    </form>
+                                }
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}
+else
+{
+    <header class="hero-img">
+        <div class="hero-text">
+            <h1>Witaj w Fit<span class="main-color-text">Insight</span></h1>
+            <p>W miejscu, gdzie podchodzimy do treningu z pasją</p>
+        </div>
+        <div class="hero-shadow"></div>
+    </header>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const caloriesChart = document.getElementById('caloriesChart').getContext('2d');
+        const pieChart = document.getElementById('activityPieChart').getContext('2d');
+
+        new Chart(caloriesChart, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.ActivityTypes)),
+                datasets: [{
+                    label: "Poszczególna aktywność",
+                    data: @Html.Raw(Json.Serialize(ViewBag.CaloriesBurned)),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(pieChart, {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.PieActivityTypes)),
+                datasets: [{
+                    label: 'Aktywności',
+                    data: @Html.Raw(Json.Serialize(ViewBag.PieActivityCounts)),
+                    backgroundColor: [
+                        '#68BB59',
+                        '#4C9A2A',
+                        '#ACDF87',
+                        '#118AB2',
+                        '#06D6A0',
+                        '#3A86FF'
+                    ],
+                    hoverBackgroundColor: [
+                        '#68BB59',
+                        '#4C9A2A',
+                        '#ACDF87',
+                        '#118AB2',
+                        '#06D6A0',
+                        '#3A86FF'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: false
+                }
+            }
+        });
+
+        $(document).ready(function () {
+        $('.like-btn').on('click', function (e) {
+            e.preventDefault();
+
+            var activityId = $(this).data('activity-id');
+            var likeButton = $(this);
+
+            $.ajax({
+                url: '@Url.Action("AddLike", "Activity")',
+                method: 'POST',
+                data: { activityId: activityId },
+                success: function (response) {
+                    likeButton.html('<i class="fa-solid fa-heart"></i> ' + response.likeCount + '');
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + error);
+                }
+            });
+        });
+        });
+
+        $(document).ready(function () {
+        $('.add-comment-form').on('submit', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var activityId = form.data('activity-id');
+            var commentContent = form.find('input[name="commentContent"]').val();
+
+            $.ajax({
+                url: '@Url.Action("AddComment", "Activity")',
+                method: 'POST',
+                data: { activityId: activityId, commentText: commentContent },
+                success: function (response) {
+                    $('#comments-' + activityId).html(response);
+                    form.find('input[name="commentContent"]').val('');
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + error);
+                }
+            });
+        });
+        });
+
+    </script>
+
+}
