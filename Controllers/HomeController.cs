@@ -81,6 +81,7 @@ public class HomeController : Controller
         ViewBag.CaloriesBurned = recentActivities.Select(a => a.CaloriesBurned).ToArray();
         ViewBag.PieActivityTypes = activityPieData.Select(a => a.ActivityType).ToArray();
         ViewBag.PieActivityCounts = activityPieData.Select(a => a.Count).ToArray();
+        ViewBag.CurrentUserId = _userManager.GetUserId(User);
     }
 
     private UserInfoViewModel CreateUserInfoViewModel(ApplicationUser user, List<FitInsight.Models.ActivityModels.cs.Activity> recentActivities, int totalActivities)

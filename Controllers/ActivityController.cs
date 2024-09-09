@@ -68,6 +68,8 @@ namespace FitInsight.Controllers
 
             var comments = await _activityRepository.GetCommentsByActivityIdAsync(activityId);
 
+            ViewBag.CurrentUserId = _userManager.GetUserId(User);
+
             return PartialView("_CommentsPartial", comments);
         }
 
@@ -82,7 +84,8 @@ namespace FitInsight.Controllers
             
             await _activityRepository.DeleteCommentAsync(comment);
 
-            
+            ViewBag.CurrentUserId = _userManager.GetUserId(User);
+
             return PartialView("_CommentsPartial", await _activityRepository.GetCommentsByActivityIdAsync(comment.ActivityId));
         }
 

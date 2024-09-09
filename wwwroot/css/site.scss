@@ -192,19 +192,19 @@ header.hero-img {
         &__greeting {
             position: relative;
             text-align: center;
-            font-size: 2rem;            
+            font-size: 2rem;
             color: $color-dark-green;
             margin-bottom: .7rem;
 
             &::after {
                 content: "";
                 position: absolute;
-                bottom: -5px; 
+                bottom: -5px;
                 left: 50%;
-                width: 50%; 
-                height: 1px; 
-                background-color: $color-dark-green; 
-                transform: translateX(-50%); 
+                width: 50%;
+                height: 1px;
+                background-color: $color-dark-green;
+                transform: translateX(-50%);
             }
         }
 
@@ -311,7 +311,6 @@ header.hero-img {
                 &:hover {
                     transform: scale(1.01);
                     @include box-shadow(darken(#000, 10%));
-                    cursor: pointer;
                 }
 
                 .activity {
@@ -342,20 +341,92 @@ header.hero-img {
                         }
                     }
                 }
+
+                .like-btn {
+                    background-color: $color-primary;
+                    color: $color-white;
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    font-size: 1rem;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+
+                    &:hover {
+                        background-color: darken(#68bb59, 20%);
+                    }
+                }
+
+                .add-comment-form {
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 1rem;
+
+                    input[type="text"] {
+                        flex: 1;
+                        padding: 0.5rem;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        margin-right: 0.5rem;
+                        font-size: 1rem;
+                        outline: none;
+
+                        &:focus {
+                            border-color: $color-primary;
+                        }
+                    }
+
+                    button {
+                        background-color: $color-primary; // Zielony przycisk
+                        color: #fff;
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        font-size: 1rem;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+
+                        &:hover {
+                            background-color: darken(#4caf50, 20%);
+                        }
+                    }
+                }
+
+                .comments-section {
+                    margin-top: 1rem;
+
+                    ul {
+                        list-style-type: none;
+                        padding: 0;
+
+                        li {
+                            padding: 0.5rem 0;
+                            border-bottom: 1px solid #e0e0e0;
+                            font-size: 0.9rem;
+                            color: #333;
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-///////////////////////ACTIVITY///////////////////////
-
-
 .delete-comment {
     margin-left: 10px;
-    background-color: red;
-    color: white;
+    color: black;
+    background: none;
     border: none;
     cursor: pointer;
+
+    &:hover {
+        color: red;
+        text-decoration: underline;
+    }
 }
 
 ///////////////////////FOOTER///////////////////////

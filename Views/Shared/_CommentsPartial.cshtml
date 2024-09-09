@@ -7,29 +7,34 @@
     {
         <li id="comment-@comment.CommentId">
             <strong>@comment.UserName</strong> - @comment.CommentText - @comment.CreatedAt.ToString("dd MMM yyyy HH:mm")
-            <button class="btn btn-danger btn-sm delete-comment" data-comment-id="@comment.CommentId">Usuń</button>
+            @if (comment.UserId.ToString() == ViewBag.CurrentUserId)
+            {
+                <button class="btn-sm delete-comment" data-comment-id="@comment.CommentId" data-activity-id="@comment.ActivityId">Usuń</button>
+            }
         </li>
     }
 </ul>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.delete-comment').on('click', function (e) {
-            e.preventDefault();
-            var commentId = $(this).data('comment-id');
 
-            $.ajax({
-                url: '@Url.Action("DeleteComment", "Activity")',
-                type: 'POST',
-                data: { commentId: commentId },
-                success: function (response) {
-                    $('#comments-list').html(response);
-                },
-                error: function (xhr) {
-                    alert('Wystąpił błąd przy usuwaniu komentarza.');
-                }
-            });
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+$(document).ready(function () {
+    $(document).on('click', '.delete-comment', function (e) {
+        e.preventDefault();
+
+        var commentId = $(this).data('comment-id');
+        var activityId = $(this).data('activity-id');
+
+        $.ajax({
+            url: '@Url.Action("DeleteComment", "Activity")',
+            type: 'POST',
+            data: { commentId: commentId },
+            success: function (response) {
+                $('#comments-' + activityId).html(response);
+            },
+            error: function (xhr) {
+            }
         });
     });
-</script>
+});
+    </script>

@@ -54,7 +54,7 @@
                                     <p class="activity__duration">Czas: @activity.Duration.ToString(@"hh\:mm\:ss")</p>
                                 </div>
 
-                                <button class="like-btn" data-activity-id="@activity.ActivityId">Lubię to (@activity.ActivityLikes.Count)</button>
+                                <button class="like-btn" data-activity-id="@activity.ActivityId"><i class="fa-regular fa-heart"></i> @activity.ActivityLikes.Count</button>
 
                                 <form class="add-comment-form" data-activity-id="@activity.ActivityId">
                                     <input type="text" name="commentContent" placeholder="Dodaj komentarz" required />
@@ -62,8 +62,9 @@
                                 </form>
 
                                 <div class="comments-section" id="comments-@activity.ActivityId">
-                                    @Html.Partial("_CommentsPartial", activity.ActivityComments)
-                                </div>
+                                        @Html.Partial("_CommentsPartial", activity.ActivityComments)
+                                </div>                     
+
                             </div>
                         </div>
                     }
@@ -155,7 +156,7 @@ else
                 method: 'POST',
                 data: { activityId: activityId },
                 success: function (response) {
-                    likeButton.text('Lubię to (' + response.likeCount + ')');
+                    likeButton.html('<i class="fa-solid fa-heart"></i> ' + response.likeCount + '');
                 },
                 error: function (xhr, status, error) {
                     console.error("An error occurred: " + error);

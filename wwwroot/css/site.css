@@ -260,7 +260,6 @@ header.hero-img .hero-text p {
 .home-dashboard .activities .activities-list__item:hover {
   transform: scale(1.01);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
 }
 .home-dashboard .activities .activities-list__item .activity__info {
   margin-bottom: 0.5em;
@@ -284,13 +283,76 @@ header.hero-img .hero-text p {
 .home-dashboard .activities .activities-list__item .activity__details .activity__duration {
   margin-bottom: 0.3em;
 }
+.home-dashboard .activities .activities-list__item .like-btn {
+  background-color: #4C9A2A;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.home-dashboard .activities .activities-list__item .like-btn:hover {
+  background-color: #3e7b33;
+}
+.home-dashboard .activities .activities-list__item .add-comment-form {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+.home-dashboard .activities .activities-list__item .add-comment-form input[type=text] {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+}
+.home-dashboard .activities .activities-list__item .add-comment-form input[type=text]:focus {
+  border-color: #4C9A2A;
+}
+.home-dashboard .activities .activities-list__item .add-comment-form button {
+  background-color: #4C9A2A;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.home-dashboard .activities .activities-list__item .add-comment-form button:hover {
+  background-color: #2d682f;
+}
+.home-dashboard .activities .activities-list__item .comments-section {
+  margin-top: 1rem;
+}
+.home-dashboard .activities .activities-list__item .comments-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+.home-dashboard .activities .activities-list__item .comments-section ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.9rem;
+  color: #333;
+}
+.home-dashboard .activities .activities-list__item .comments-section ul li:last-child {
+  border-bottom: none;
+}
 
 .delete-comment {
   margin-left: 10px;
-  background-color: red;
-  color: white;
+  color: black;
+  background: none;
   border: none;
   cursor: pointer;
+}
+.delete-comment:hover {
+  color: red;
+  text-decoration: underline;
 }
 
 footer {
