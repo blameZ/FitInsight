@@ -29,6 +29,14 @@ namespace FitInsight.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Activity>> GetAllActivitiesAsync()
+        {
+            return await _context.Activities                
+                .OrderByDescending(a => a.StartTime)
+                .Include(a => a.ActivityLikes)
+                .Include(a => a.ActivityComments)
+                .ToListAsync();
+        }
 
         public async Task<int> GetTotalActivitiesAsync(Guid userId)
         {

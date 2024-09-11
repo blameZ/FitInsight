@@ -89,7 +89,7 @@ namespace FitInsight.Controllers
         {
             return new UserInfoViewModel
             {
-                UserName = user.FirstName,
+                UserName = user.UserName,
                 UserId = userId,
                 Email = user.Email,
                 TotalActivities = totalActivities,

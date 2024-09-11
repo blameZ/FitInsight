@@ -14,16 +14,18 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IActivityRepository _activityRepository;
+    private readonly IUserRepository _userRepository;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public HomeController(ILogger<HomeController> logger,IActivityRepository activityRepository, UserManager<ApplicationUser> userManager)
+    public HomeController(ILogger<HomeController> logger,IActivityRepository activityRepository, IUserRepository userRepository, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _activityRepository = activityRepository;
+        _userRepository = userRepository;
         _userManager = userManager;
     }
 
-    public async Task<IActionResult> Index(DateTime? startDate, DateTime? endDate)
+    public async Task<IActionResult> Index()
     {
         if (!User.Identity.IsAuthenticated)
         {
@@ -40,17 +42,33 @@ public class HomeController : Controller
             return RedirectToAction("Login", "Authentication");
         }
 
-        startDate ??= DateTime.Now.AddDays(-14);
-        endDate ??= DateTime.Now;
+        var activities = await _activityRepository.GetAllActivitiesAsync();
+        var allActivities = new List<ActivityViewModel>();
 
-        var recentActivities = await GetRecentActivitiesAsync(userId, startDate.Value, endDate.Value);
-        var totalActivities = await _activityRepository.GetTotalActivitiesAsync(userId);
 
-        AssignDataToViewBag(recentActivities);
+        foreach (var activity in activities)
+        {
+            allActivities.Add(new ActivityViewModel
+            {
+                ActivityId = activity.ActivityId,
+                UserId = activity.UserId,
+                UserName = await _userRepository.GetUserNameByIdAsync(activity.UserId),
+                IsPrivate = activity.IsPrivate,
+                ActivityType = activity.ActivityType,
+                Distance = activity.Distance,
+                Duration = activity.Duration,
+                CaloriesBurned = activity.CaloriesBurned,
+                StartTime = activity.StartTime,
+                ActivityComments = activity.ActivityComments,
+                ActivityLikes = activity.ActivityLikes
+            });
+        }
+        
+        AssignDataToViewBag();
 
-        var userInfo = CreateUserInfoViewModel(user, userId, recentActivities, totalActivities);
+        var userInfo = CreateUserInfoViewModel(user, userId, allActivities);
 
-        LogActivityResults(recentActivities, userId);
+        LogActivityResults(allActivities, userId);
 
         return View(userInfo);
     }
@@ -65,46 +83,31 @@ public class HomeController : Controller
         return user;
     }
 
-    private async Task<List<FitInsight.Models.ActivityModels.cs.Activity>> GetRecentActivitiesAsync(Guid userId, DateTime startDate, DateTime endDate)
-    {
-        return await _activityRepository.GetRecentActivitiesAsync(userId, startDate, endDate);
-    }
-
-    private void AssignDataToViewBag(List<FitInsight.Models.ActivityModels.cs.Activity> recentActivities)
-    {
-        var activityPieData = recentActivities
-            .GroupBy(a => a.ActivityType)
-            .Select(g => new { ActivityType = g.Key, Count = g.Count() })
-            .ToList();
-
-        ViewBag.ActivityTypes = recentActivities.Select(a => a.ActivityType).ToArray();
-        ViewBag.CaloriesBurned = recentActivities.Select(a => a.CaloriesBurned).ToArray();
-        ViewBag.PieActivityTypes = activityPieData.Select(a => a.ActivityType).ToArray();
-        ViewBag.PieActivityCounts = activityPieData.Select(a => a.Count).ToArray();
+    private void AssignDataToViewBag()
+    {     
         ViewBag.CurrentUserId = _userManager.GetUserId(User);
     }
 
-    private UserInfoViewModel CreateUserInfoViewModel(ApplicationUser user, Guid userId, List<FitInsight.Models.ActivityModels.cs.Activity> recentActivities, int totalActivities)
+    private UserInfoViewModel CreateUserInfoViewModel(ApplicationUser user, Guid userId, List<ActivityViewModel> allActivities)
     {
         return new UserInfoViewModel
         {
             UserName = user.FirstName,
             UserId = userId,
             Email = user.Email,
-            TotalActivities = totalActivities,
-            RecentActivities = recentActivities
+            AllActivities = allActivities
         };
     }
 
-    private void LogActivityResults(List<FitInsight.Models.ActivityModels.cs.Activity> recentActivities, Guid userId)
+    private void LogActivityResults(List<ActivityViewModel> allActivities, Guid userId)
     {
-        if (recentActivities.Count == 0)
+        if (allActivities.Count == 0)
         {
             _logger.LogInformation($"No recent activities found for user: {userId}");
         }
         else
         {
-            _logger.LogInformation($"{recentActivities.Count} recent activities retrieved for user: {userId}");
+            _logger.LogInformation($"{allActivities.Count} recent activities retrieved for user: {userId}");
         }
     }
 

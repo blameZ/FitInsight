@@ -265,9 +265,13 @@ header.hero-img .hero-text p {
 .dashboard .activities .activities-list__item .activity__info {
   margin-bottom: 0.5em;
 }
+.dashboard .activities .activities-list__item .activity__info .activity__user {
+  font-size: 2em;
+  color: #1E5631;
+}
 .dashboard .activities .activities-list__item .activity__info .activity__title {
   font-size: 1.5em;
-  color: #1E5631;
+  color: #333;
 }
 .dashboard .activities .activities-list__item .activity__info .activity__date {
   font-size: 0.9em;
@@ -368,7 +372,7 @@ header.hero-img .hero-text p {
   padding: 0.5em 1em;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  color: #4C9A2A;
+  color: #333;
 }
 .privacy-btn:hover {
   opacity: 0.8;

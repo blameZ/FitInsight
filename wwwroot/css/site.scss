@@ -318,9 +318,14 @@ header.hero-img {
                     &__info {
                         margin-bottom: .5em;
 
+                        .activity__user {
+                            font-size: 2em;
+                            color: $color-dark-green;
+                        }
+
                         .activity__title {
                             font-size: 1.5em;
-                            color: $color-dark-green;
+                            color: $color-text;
                         }
 
                         .activity__date {
@@ -341,7 +346,6 @@ header.hero-img {
                             margin-bottom: 0.3em;
                         }
                     }
-
                 }
 
                 .like-btn {
@@ -443,7 +447,7 @@ header.hero-img {
     padding: 0.5em 1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    color: $color-primary;
+    color: $color-text;
 
 
     &:hover {

@@ -4,12 +4,123 @@
     ViewData["Title"] = "Strona Główna";
 }
 
+@model UserInfoViewModel
 
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <div class="dashboard">
+            <section class="activities">
+                <div class="activities-list">
+                    @foreach (var activity in Model.AllActivities)
+                    {
+                        <div class="activities-list__item">
 
-<header class="hero-img">
-    <div class="hero-text">
-        <h1>Witaj w Fit<span class="main-color-text">Insight</span></h1>
-        <p>W miejscu, gdzie podchodzimy do treningu z pasją</p>
-    </div>
-    <div class="hero-shadow"></div>
-</header>
+                            <div class="activity">
+
+                                <div class="activity__info">
+                                    <h2 class="activity__user">@activity.UserName</h2>
+                                    <h3 class="activity__title">@activity.ActivityType</h3>
+                                    <p class="activity__date">@activity.StartTime.ToString("dd MMMM yyyy, HH:mm")</p>
+                                </div>
+
+                                <div class="activity__details">
+                                    <p class="activity__distance">Dystans: @activity.Distance km</p>
+                                    <p class="activity__duration">Czas: @activity.Duration.ToString(@"hh\:mm\:ss")</p>
+                                </div>
+
+                                <button class="like-btn" data-activity-id="@activity.ActivityId"><i class="fa-regular fa-heart"></i> @activity.ActivityLikes.Count</button>
+
+                                <form class="add-comment-form" data-activity-id="@activity.ActivityId">
+                                    <input type="text" name="commentContent" placeholder="Dodaj komentarz" required />
+                                    <button type="submit">Dodaj komentarz</button>
+                                </form>
+
+                                <div class="comments-section" id="comments-@activity.ActivityId">
+                                    @await Html.PartialAsync("_CommentsPartial", activity.ActivityComments)
+                                </div>
+
+                                @if (activity.UserId == Model.UserId)
+                                {
+                                    <form method="post" asp-action="TogglePrivacy" asp-controller="Activity" asp-route-activityId="@activity.ActivityId" class="privacy-toggle">
+                                        @if (activity.IsPrivate)
+                                        {
+                                            <button type="submit" class="privacy-btn private"><i class="fa-solid fa-lock"></i> Prywatny</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" class="privacy-btn public"><i class="fa-solid fa-earth-americas"></i> Publiczny</button>
+                                        }
+                                    </form>
+                                }
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>    
+}
+else
+{
+    <header class="hero-img">
+        <div class="hero-text">
+            <h1>Witaj w Fit<span class="main-color-text">Insight</span></h1>
+            <p>W miejscu, gdzie podchodzimy do treningu z pasją</p>
+        </div>
+        <div class="hero-shadow"></div>
+    </header>
+}
+
+@section Scripts {
+
+    <script>
+            $(document).ready(function () {
+        $('.like-btn').on('click', function (e) {
+            e.preventDefault();
+
+            var activityId = $(this).data('activity-id');
+            var likeButton = $(this);
+
+            $.ajax({
+                url: '@Url.Action("AddLike", "Activity")',
+                method: 'POST',
+                data: { activityId: activityId },
+                success: function (response) {
+                    likeButton.html('<i class="fa-solid fa-heart"></i> ' + response.likeCount + '');
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + error);
+                }
+            });
+        });
+        });
+
+        $(document).ready(function () {
+        $('.add-comment-form').on('submit', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var activityId = form.data('activity-id');
+            var commentContent = form.find('input[name="commentContent"]').val();
+
+            $.ajax({
+                url: '@Url.Action("AddComment", "Activity")',
+                method: 'POST',
+                data: { activityId: activityId, commentText: commentContent },
+                success: function (response) {
+                    $('#comments-' + activityId).html(response);
+                    form.find('input[name="commentContent"]').val('');
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + error);
+                }
+            });
+        });
+        });
+
+    </script>
+
+}

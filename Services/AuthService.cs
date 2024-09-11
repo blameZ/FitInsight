@@ -24,11 +24,12 @@ namespace FitInsight.Services
             
             var user = new ApplicationUser
             {
-                UserName = model.Email,
+                UserName = model.UserName,
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Age = model.Age
+                Age = model.Age,
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

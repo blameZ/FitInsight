@@ -65,7 +65,7 @@
                                 </form>
 
                                 <div class="comments-section" id="comments-@activity.ActivityId">
-                                    @Html.Partial("_CommentsPartial", activity.ActivityComments)
+                                    @await Html.PartialAsync("_CommentsPartial", activity.ActivityComments)
                                 </div>
 
                                 @if (activity.UserId == Model.UserId)

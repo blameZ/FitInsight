@@ -11,6 +11,10 @@ namespace FitInsight.Models
         [DisplayName("Adres e-mail")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Pole nazwa użytkownika jest wymagane.")]
+        [DisplayName("Nazwa użytkownika")]
+        public string UserName { get; set; }
+
         [Required(ErrorMessage = "Pole hasło jest wymagane.")]
         [DataType(DataType.Password)]
         [DisplayName("Hasło")]
