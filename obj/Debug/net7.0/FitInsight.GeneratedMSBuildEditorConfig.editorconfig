@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/bartoszsermak/Projects/BachelorApp/BachelorApp
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/Views/Activity/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWN0aXZpdHkvQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/Views/Authentication/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aGVudGljYXRpb24vTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

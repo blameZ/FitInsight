@@ -43,6 +43,7 @@
     <Folder Include="Migrations\" />
     <Folder Include="Repositories\" />
     <Folder Include="Views\UserDashboard\" />
+    <Folder Include="Views\Activity\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="DataAccess\" />
@@ -56,6 +57,7 @@
     <None Remove="Migrations\" />
     <None Remove="Repositories\" />
     <None Remove="Views\UserDashboard\" />
+    <None Remove="Views\Activity\" />
   </ItemGroup>
   <ItemGroup>
     <SassFile Remove="wwwroot\css\_colors.scss" />

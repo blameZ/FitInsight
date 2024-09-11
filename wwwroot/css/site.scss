@@ -455,6 +455,75 @@ header.hero-img {
     }
 }
 
+///////////////////////ADD ACTIVITY///////////////////////
+
+.add-activity {
+    background-color: $color-background;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &__title {
+        font-size: 2rem;
+        color: $color-primary;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: $color-dark-green;
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            color: $color-text;
+            transition: border-color 0.3s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $color-dark-green;
+            }
+        }
+
+        .text-danger {
+            font-size: 0.875rem;
+            color: #e74c3c;
+            margin-top: 0.25rem;
+        }
+    }
+
+    &__submit-btn {
+        align-self: center;
+        background-color: $color-primary;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+        color: $color-white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: $color-dark-green;
+        }
+    }
+}
+
 ///////////////////////FOOTER///////////////////////
 
 footer {

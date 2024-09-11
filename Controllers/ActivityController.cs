@@ -2,12 +2,16 @@
 using FitInsight.Interfaces;
 using FitInsight.Models;
 using FitInsight.Models.ActivityModels;
+using FitInsight.Models.ActivityModels.cs;
+using FitInsight.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitInsight.Controllers
 {
+    [Authorize]
 	public class ActivityController : Controller
 	{
         private readonly ILogger<ActivityController> _logger;
@@ -19,6 +23,35 @@ namespace FitInsight.Controllers
 			_activityRepository = activityRepository;
             _userManager = userManager;
             _logger = logger;
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddActivityViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var activity = new Activity
+                {
+                    ActivityType = model.ActivityType,
+                    Distance = model.Distance,
+                    Duration = model.Duration,
+                    CaloriesBurned = model.CaloriesBurned,
+                    StartTime = model.StartTime,
+                    UserId = Guid.Parse(user.Id) 
+                };
+
+                await _activityRepository.AddActivityAsync(activity);
+                return RedirectToAction("Index", "UserDashboard");
+            }
+
+            return View(model);
         }
 
         [HttpPost]

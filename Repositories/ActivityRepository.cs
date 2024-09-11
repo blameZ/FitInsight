@@ -29,10 +29,11 @@ namespace FitInsight.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Activity>> GetAllActivitiesAsync()
+        public async Task<List<Activity>> GetAllPublicOrOwnActivitiesAsync(Guid userId)
         {
-            return await _context.Activities                
-                .OrderByDescending(a => a.StartTime)
+            return await _context.Activities
+                .Where(a => !a.IsPrivate || a.UserId == userId)
+                .OrderByDescending(a => a.CreatedAt)
                 .Include(a => a.ActivityLikes)
                 .Include(a => a.ActivityComments)
                 .ToListAsync();
@@ -90,6 +91,11 @@ namespace FitInsight.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddActivityAsync(Activity activity)
+        {
+            _context.Activities.Add(activity);
+            await _context.SaveChangesAsync();
+        }
     }
 }
 

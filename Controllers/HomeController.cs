@@ -42,7 +42,8 @@ public class HomeController : Controller
             return RedirectToAction("Login", "Authentication");
         }
 
-        var activities = await _activityRepository.GetAllActivitiesAsync();
+        var activities = await _activityRepository.GetAllPublicOrOwnActivitiesAsync(userId);
+
         var allActivities = new List<ActivityViewModel>();
 
 

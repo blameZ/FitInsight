@@ -7,7 +7,7 @@ namespace FitInsight.Interfaces
     public interface IActivityRepository
     {
         Task<List<Activity>> GetRecentActivitiesAsync(Guid userId, DateTime? startDate, DateTime? endDate);
-        Task<List<Activity>> GetAllActivitiesAsync();
+        Task<List<Activity>> GetAllPublicOrOwnActivitiesAsync(Guid userId);
         Task<int> GetTotalActivitiesAsync(Guid userId);
         Task<Activity> GetActivityByIdAsync(int activityId);
         Task AddLikeAsync(Guid userId, int activityId);
@@ -16,6 +16,7 @@ namespace FitInsight.Interfaces
         Task<ActivityComment> GetCommentByIdAsync(int commentId);
         Task DeleteCommentAsync(ActivityComment comment);
         Task UpdateActivityAsync(Activity activity);
+        Task AddActivityAsync(Activity activity);
     }
 }
 

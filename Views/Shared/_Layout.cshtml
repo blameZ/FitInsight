@@ -28,9 +28,9 @@
                     <div class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="link nav-link active" aria-current="page" href="UserDashboard/Index"><i class="fa-solid fa-desktop"></i> Mój panel</a>
-                            <a class="link nav-link active" aria-current="page" href="Activity/Create"><i class="fa-solid fa-plus"></i> Dodaj aktywność</a>
-                            <a class="link nav-link active" aria-current="page" href="/Authentication/Logout"><i class="fa-solid fa-right-from-bracket"></i> Wyloguj się</a>
+                            <a class="link nav-link active" aria-current="page" href=@Url.Action("Index", "UserDashboard")><i class="fa-solid fa-desktop"></i> Mój panel</a>
+                            <a class="link nav-link active" aria-current="page" href=@Url.Action("Add", "Activity")><i class="fa-solid fa-plus"></i> Dodaj aktywność</a>
+                            <a class="link nav-link active" aria-current="page" href=@Url.Action("Logout", "Authentication")><i class="fa-solid fa-right-from-bracket"></i> Wyloguj się</a>
                         }
                         else
                         {
