@@ -1,10 +1,10 @@
 ﻿@using FitInsight.Models.ViewModels;
 
+@model UserInfoViewModel
+
 @{
     ViewData["Title"] = "Strona Główna";
 }
-
-@model UserInfoViewModel
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -61,7 +61,7 @@
                 </div>
             </section>
         </div>
-    </div>    
+    </div>
 }
 else
 {

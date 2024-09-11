@@ -12,7 +12,7 @@
         <div class="dashboard">
             <div class="user-info">
                 <h2 class="user-info__greeting">
-                    Witaj, <a href="@Url.Action("EditProfile", "Account")" class="user-info__link">@Model.UserName</a>
+                    Witaj, <a href="@Url.Action("UserProfile", "Account")" class="user-info__link">@Model.UserName</a>
                 </h2>
                 <p class="user-info__activity-count">Twoja liczba aktywności: @Model.TotalActivities</p>
                 <form method="get" asp-action="Index">

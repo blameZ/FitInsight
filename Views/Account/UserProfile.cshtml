@@ -1,0 +1,24 @@
+﻿@using FitInsight.Models.ViewModels
+
+@{
+    ViewData["Title"] = "Dodawanie aktywności";
+}
+
+@model UserProfileViewModel
+
+<div class="container user-profile">
+    <div class="user-profile__header">
+        <h2>Profil użytkownika</h2>
+        <a href="@Url.Action("EditProfile", "Account")" class="user-profile__edit-link">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <div class="user-profile__info">
+        <p><strong>Nazwa użytkownika:</strong> @Model.UserName</p>
+        <p><strong>Imię:</strong> @Model.FirstName</p>
+        <p><strong>Nazwisko:</strong> @Model.LastName</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Wiek:</strong> @Model.Age</p>
+    </div>
+</div>

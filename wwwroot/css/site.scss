@@ -524,6 +524,98 @@ header.hero-img {
     }
 }
 
+///////////////////////ACCOUNT///////////////////////
+
+.user-profile {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: $color-background;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+            font-size: 2rem;
+            color: $color-primary;
+        }
+
+        .user-profile__edit-link {
+            color: $color-text;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+
+            &:hover {
+                color: $color-dark-green;
+            }
+
+            i {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__info {
+        margin-top: 20px;
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+
+            strong {
+                color: $color-dark-green;
+            }
+        }
+    }
+}
+
+.edit-profile {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: $color-background;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: $color-primary;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+
+        label {
+            font-size: 1.2rem;
+            color: $color-medium-green;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    }
+
+    .btn {
+        background-color: $color-lime-green;
+        color: $color-white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: $color-medium-green;
+        }
+    }
+}
+
 ///////////////////////FOOTER///////////////////////
 
 footer {
