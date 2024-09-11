@@ -1,6 +1,7 @@
 ﻿using System;
 using FitInsight.DataAccess;
 using FitInsight.Interfaces;
+using FitInsight.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitInsight.Repositories
@@ -24,6 +25,26 @@ namespace FitInsight.Repositories
             }
 
             return user.UserName;
+        }
+
+        public async Task AddUserWeightHistoryAsync(string userId, float weight)
+        {
+            _context.UserWeightHistories.Add(new UserWeightHistory
+            {
+                UserId = userId,
+                Weight = weight,
+                Date = DateTime.Now
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<UserWeightHistory>> GetUserWeightHistoriesByUserIdAsync(string userId)
+        {
+            return await _context.UserWeightHistories
+                .Where(wh => wh.UserId == userId)
+                .OrderBy(wh => wh.Date)
+                .ToListAsync();
         }
     }
 }

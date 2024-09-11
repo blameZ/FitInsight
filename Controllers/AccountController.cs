@@ -1,19 +1,24 @@
 ﻿using System;
+using FitInsight.Interfaces;
 using FitInsight.Models;
+using FitInsight.Models.UserModels;
 using FitInsight.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitInsight.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserRepository _userRepository;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser> userManager, IUserRepository userRepository)
         {
             _userManager = userManager;
-        }
+            _userRepository = userRepository;
+        }       
 
         public async Task<IActionResult> UserProfile()
         {
@@ -23,14 +28,21 @@ namespace FitInsight.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            var weightHistory = await _userRepository.GetUserWeightHistoriesByUserIdAsync(user.Id);
+
             var model = new UserProfileViewModel
             {
                 UserName = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                Age = user.Age
+                Age = user.Age,
+                CurrentWeight = user.CurrentWeight,
+                WeightHistory = weightHistory
             };
+
+            ViewBag.WeightDates = weightHistory.Select(wh => wh.Date.ToString("yyyy-MM-dd")).ToArray();
+            ViewBag.WeightValues = weightHistory.Select(wh => wh.Weight).ToArray();
 
             return View(model);
         }
@@ -89,6 +101,32 @@ namespace FitInsight.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateWeight(float weight)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            user.CurrentWeight = weight;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                await _userRepository.AddUserWeightHistoryAsync(user.Id, weight);
+
+                return RedirectToAction("UserProfile");
+            }
+            
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return RedirectToAction("UserProfile");
+        }
 
     }
 }

@@ -23,6 +23,7 @@ namespace FitInsight.DataAccess
         public DbSet<ActivityLike> ActivityLikes { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
         public DbSet<UserSettings> UserSettings { get; set; }
+        public DbSet<UserWeightHistory> UserWeightHistories { get; set; }
     }
 }
 

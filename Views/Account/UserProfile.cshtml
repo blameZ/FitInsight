@@ -20,5 +20,55 @@
         <p><strong>Nazwisko:</strong> @Model.LastName</p>
         <p><strong>Email:</strong> @Model.Email</p>
         <p><strong>Wiek:</strong> @Model.Age</p>
+        <p><strong>Waga:</strong> @Model.CurrentWeight</p>
     </div>
+
+    <h3 class="user-profile__section-title">Aktualizuj wagę</h3>
+    <form asp-action="UpdateWeight" method="post" class="user-profile__form">
+        <div class="user-profile__form-group">
+            <label for="Weight" class="user-profile__label">Podaj swoją wagę (kg):</label>
+            <input type="number" class="user-profile__input" id="Weight" name="Weight" step="0.1" min="0" required>
+        </div>
+        <button type="submit" class="btn user-profile__btn">Aktualizuj wagę</button>
+    </form>
+
+    <h3 class="user-profile__section-title">Historia wagi</h3>
+    <canvas id="weightChart" class="user-profile__chart"></canvas>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('weightChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ViewBag.WeightDates)),
+                datasets: [{
+                    label: 'Waga (kg)',
+                    data: @Html.Raw(Json.Serialize(ViewBag.WeightValues)),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Data'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Waga (kg)'
+                        },
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    </script>
+}
