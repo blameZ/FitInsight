@@ -6,10 +6,10 @@ namespace FitInsight.Models.ViewModels
 {
 	public class LoginViewModel
 	{
-        [Required(ErrorMessage = "Pole adres e-mail jest wymagane.")]
-        [EmailAddress(ErrorMessage = "Nieprawidłowy format adresu e-mail.")]
-        [DisplayName("Adres e-mail")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Pole nazwa użytkownika jest wymagane.")]
+        [DataType(DataType.Text)]
+        [DisplayName("Nazwa użytkownika")]
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Pole hasło jest wymagane.")]
         [DataType(DataType.Password)]

@@ -78,7 +78,9 @@ namespace FitInsight.Controllers
                 .Select(g => new { ActivityType = g.Key, Count = g.Count() })
                 .ToList();
 
-            ViewBag.ActivityTypes = recentActivities.Select(a => a.ActivityType).ToArray();
+            ViewBag.ActivityTypes = recentActivities
+                .Select(a => a.ActivityType + " (" + a.StartTime.ToString("dd MMM yyyy") + ")")
+                .ToArray();
             ViewBag.CaloriesBurned = recentActivities.Select(a => a.CaloriesBurned).ToArray();
             ViewBag.PieActivityTypes = activityPieData.Select(a => a.ActivityType).ToArray();
             ViewBag.PieActivityCounts = activityPieData.Select(a => a.Count).ToArray();

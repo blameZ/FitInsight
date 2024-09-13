@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FitInsight")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdfad8a67eb3b444693eca5b4ecf3b87510d77c3")]
 [assembly: System.Reflection.AssemblyProductAttribute("FitInsight")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FitInsight")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

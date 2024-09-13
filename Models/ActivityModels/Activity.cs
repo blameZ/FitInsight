@@ -32,10 +32,7 @@ namespace FitInsight.Models.ActivityModels.cs
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        public ICollection<ActivityMetric> ActivityMetrics { get; set; }
-        public ICollection<ActivityRoute> ActivityRoutes { get; set; }
         public ICollection<ActivityComment> ActivityComments { get; set; }
         public ICollection<ActivityLike> ActivityLikes { get; set; }
     }
 }
-

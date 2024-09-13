@@ -607,8 +607,8 @@ header.hero-img {
             }
         }
 
-        &__btn {
-            background-color: $color-primary;
+        &-btn {
+            background-color: $color-medium-green;
             color: $color-white;
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
@@ -617,7 +617,7 @@ header.hero-img {
             cursor: pointer;
 
             &:hover {
-                background-color: $color-dark-green;
+                background-color: $color-primary;
             }
         }
     }

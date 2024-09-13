@@ -73,4 +73,5 @@
 /Users/bartoszsermak/Projects/BachelorApp/BachelorApp/bin/Debug/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 /Users/bartoszsermak/Projects/BachelorApp/BachelorApp/bin/Debug/net7.0/Microsoft.AspNetCore.Identity.UI.dll
 /Users/bartoszsermak/Projects/BachelorApp/BachelorApp/obj/Debug/net7.0/FitInsight.MvcApplicationPartsAssemblyInfo.cs
-/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/obj/Debug/net7.0/FitInsight.csproj.CopyComplete
+/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/obj/Debug/net7.0/FitInsight.sourcelink.json
+/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/obj/Debug/net7.0/FitInsight.csproj.Up2Date

@@ -39,7 +39,6 @@
     <Folder Include="wwwroot\img\" />
     <Folder Include="Models\UserModels\" />
     <Folder Include="Models\ActivityModels\" />
-    <Folder Include="Models\EquipmentModels\" />
     <Folder Include="Migrations\" />
     <Folder Include="Repositories\" />
     <Folder Include="Views\UserDashboard\" />
@@ -54,7 +53,6 @@
     <None Remove="Views\Authentication\" />
     <None Remove="Models\UserModels\" />
     <None Remove="Models\ActivityModels\" />
-    <None Remove="Models\EquipmentModels\" />
     <None Remove="Migrations\" />
     <None Remove="Repositories\" />
     <None Remove="Views\UserDashboard\" />

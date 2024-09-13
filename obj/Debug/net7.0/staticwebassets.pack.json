@@ -1,12 +1,8 @@
 {
   "Files": [
     {
-      "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/.DS_Store",
-      "PackagePath": "staticwebassets/.DS_Store"
-    },
-    {
-      "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/css/.DS_Store",
-      "PackagePath": "staticwebassets/css/.DS_Store"
+      "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/css/_colors.scss",
+      "PackagePath": "staticwebassets/css/_colors.scss"
     },
     {
       "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/css/site.css",
@@ -17,12 +13,12 @@
       "PackagePath": "staticwebassets/css/site.css.map"
     },
     {
-      "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/favicon.ico",
-      "PackagePath": "staticwebassets/favicon.ico"
+      "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/css/site.scss",
+      "PackagePath": "staticwebassets/css/site.scss"
     },
     {
-      "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/img/.DS_Store",
-      "PackagePath": "staticwebassets/img/.DS_Store"
+      "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/favicon.ico",
+      "PackagePath": "staticwebassets/favicon.ico"
     },
     {
       "Id": "/Users/bartoszsermak/Projects/BachelorApp/BachelorApp/wwwroot/img/hero.jpg",

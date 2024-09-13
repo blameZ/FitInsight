@@ -504,8 +504,8 @@ header.hero-img .hero-text p {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 128, 0, 0.2);
 }
-.user-profile__form__btn {
-  background-color: #4C9A2A;
+.user-profile__form-btn {
+  background-color: #68BB59;
   color: #fff;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
@@ -513,8 +513,8 @@ header.hero-img .hero-text p {
   border-radius: 4px;
   cursor: pointer;
 }
-.user-profile__form__btn:hover {
-  background-color: #1E5631;
+.user-profile__form-btn:hover {
+  background-color: #4C9A2A;
 }
 .user-profile__chart {
   width: 100%;

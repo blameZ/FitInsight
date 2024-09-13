@@ -48,11 +48,11 @@ namespace FitInsight.Services
 
         public async Task<LoginResult> LoginAsync(LoginViewModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent:false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, isPersistent:false, lockoutOnFailure: false);
 
             if(result.Succeeded)
             {
-                _logger.LogInformation($"User {model.Email} logged in.");
+                _logger.LogInformation($"User {model.UserName} logged in.");
                 return new LoginResult { Succeeded = true };
             }
             else
@@ -60,14 +60,14 @@ namespace FitInsight.Services
                 var errors = new List<string>();
                 if(result.IsLockedOut)
                 {
-                    _logger.LogWarning($"User account {model.Email} is locked out.");
-                    errors.Add($"Konto {model.Email} jest zablokowane");
+                    _logger.LogWarning($"User account {model.UserName} is locked out.");
+                    errors.Add($"Konto {model.UserName} jest zablokowane");
                     return new LoginResult { IsLockedOut = true, Errors = errors };
                 }
                 else
                 {
-                    _logger.LogWarning($"Invalid login attempt for {model.Email} user.");
-                    errors.Add($"Nieudana próba logowania dla użytkownika {model.Email}.");
+                    _logger.LogWarning($"Invalid login attempt for {model.UserName} user.");
+                    errors.Add($"Nieudana próba logowania dla użytkownika {model.UserName}.");
                     return new LoginResult { Errors = errors };
                 }
             }
